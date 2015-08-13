@@ -1,0 +1,6 @@
+---
+- hosts: vm
+  tasks:
+    - shell: docker start postgres
+    - shell: docker start redis
+    - shell: docker start pvpc

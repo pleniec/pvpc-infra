@@ -1,0 +1,10 @@
+---
+- hosts: vm
+  tasks:
+    - git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/pvpc
+    - shell: docker build -t pvpc .
+      args:
+        chdir: /home/vagrant/pvpc
+    - shell: docker create --name postgres postgres
+    - shell: docker create --name redis redis
+    - shell: docker create -p 3000:3000 --name pvpc --link postgres:postgres --link redis:redis pvpc

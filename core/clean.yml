@@ -1,0 +1,8 @@
+---
+- hosts: vm
+  tasks:
+    - shell: docker rm pvpc
+    - shell: docker rm redis
+    - shell: docker rm postgres
+    - shell: docker rmi pvpc
+    - file: path=/home/vagrant/pvpc state=absent
