@@ -20,11 +20,15 @@ git clone https://github.com/pleniec/pvpc-infra.git
 ```bash
 cd pvpc-infra/core
 ```
-5. Start VM
+5. Add ubuntu box
+```bash
+vagrant add box ubuntu https://cloud-images.ubuntu.com/vagrant/utopic/current/utopic-server-cloudimg-amd64-vagrant-disk1.box
+```
+6. Start VM
 ```bash
 vagrant up
 ```
-6. Initialize ssh key (remove old if needed)
+7. Initialize ssh key (remove old if needed)
 ```bash
 ssh 111.111.111.111
 ```
