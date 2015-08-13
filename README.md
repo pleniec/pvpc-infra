@@ -38,3 +38,8 @@ ssh 111.111.111.111
 |                 |            |                      <----------+                  <--------------+              |
 +-----------------+            +----------------------+          +------------------+              +--------------+
 ```
+1. init.yml - installs git, docker and reboots VM
+2. build.yml - downloads pvpc-core, builds pvpc-core image and creates Docker containers (postgres, redis, pvpc-core)
+3. clean.yml - destroys containers, images and pvpc-core code
+4. start.yml - starts containers
+5. stop.yml - stops containers
