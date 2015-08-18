@@ -22,7 +22,7 @@ cd pvpc-infra/core
 ```
 5. Add ubuntu box
 ```bash
-vagrant add box ubuntu https://cloud-images.ubuntu.com/vagrant/utopic/current/utopic-server-cloudimg-amd64-vagrant-disk1.box
+vagrant box add ubuntu https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
 ```
 6. Start VM
 ```bash
