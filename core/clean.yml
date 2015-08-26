@@ -1,8 +1,9 @@
 ---
 - hosts: vm
   tasks:
-    - shell: docker rm pvpc
-    - shell: docker rm redis
-    - shell: docker rm postgres
-    - shell: docker rmi pvpc
+    - shell: docker {{ item[1] }} {{ item[0] }}
+      ignore_errors: yes
+      with_nested:
+        - ['pvpc', 'redis', 'postgres']
+        - ['stop', 'rm', 'rmi']
     - file: path=/home/vagrant/pvpc state=absent
