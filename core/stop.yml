@@ -1,6 +1,9 @@
 ---
 - hosts: vm
   tasks:
-    - shell: docker stop pvpc
-    - shell: docker stop redis
-    - shell: docker stop postgres
+    - shell: docker stop {{ item }}
+      ignore_errors: yes
+      with_items:
+        - postgres
+        - redis
+        - pvpc

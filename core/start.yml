@@ -1,6 +1,8 @@
 ---
 - hosts: vm
   tasks:
-    - shell: docker start postgres
-    - shell: docker start redis
-    - shell: docker start pvpc
+    - shell: docker start {{ item }}
+      with_items:
+        - postgres
+        - redis
+        - pvpc
