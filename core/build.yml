@@ -4,7 +4,13 @@
     - git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/pvpc
     - shell: docker build -t pvpc .
       args:
-        chdir: /home/vagrant/pvpc
-    - shell: docker create --name postgres postgres
+       chdir: /home/vagrant/pvpc
+    - shell: docker run -d -p 5432:5432 --name postgres postgres
+    - pause: seconds=10
+    - shell: createdb -h localhost -U postgres pvpc
+    - shell: createuser -h localhost -U postgres pvpc
+    - shell: docker run -d -p 3000:3000 --name pvpc --link postgres:postgres pvpc
+    - shell: docker exec pvpc rake db:migrate
+    - shell: docker stop pvpc
+    - shell: docker stop postgres
     - shell: docker create --name redis redis
-    - shell: docker create -p 3000:3000 --name pvpc --link postgres:postgres --link redis:redis pvpc
