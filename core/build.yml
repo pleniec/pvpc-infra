@@ -7,12 +7,13 @@
        chdir: /home/vagrant/pvpc
     - shell: docker run -d -p 5432:5432 --name postgres postgres
     - pause: seconds=10
-    - apt: name=postgresql-client-9.3
-      sudo: yes
-    - shell: createdb -h localhost -U postgres pvpc
-    - shell: createuser -h localhost -U postgres pvpc
-    - shell: docker create -p 6379:6379 --name redis redis
+    - shell: docker exec postgres {{ item }} -h localhost -U postgres pvpc
+      with_items:
+        - createdb
+        - createuser
+    - shell: docker run -d -p 6379:6379 --name redis redis
     - shell: docker run -d -p 3000:3000 --name pvpc --link postgres:postgres --link redis:redis pvpc
     - shell: docker exec pvpc rake db:migrate
     - shell: docker stop pvpc
+    - shell: docker stop redis
     - shell: docker stop postgres
