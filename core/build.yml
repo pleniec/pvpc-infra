@@ -11,8 +11,8 @@
       sudo: yes
     - shell: createdb -h localhost -U postgres pvpc
     - shell: createuser -h localhost -U postgres pvpc
-    - shell: docker run -d -p 3000:3000 --name pvpc --link postgres:postgres pvpc
+    - shell: docker create -p 6379:6379 --name redis redis
+    - shell: docker run -d -p 3000:3000 --name pvpc --link postgres:postgres --link redis:redis pvpc
     - shell: docker exec pvpc rake db:migrate
     - shell: docker stop pvpc
     - shell: docker stop postgres
-    - shell: docker create --name redis redis
