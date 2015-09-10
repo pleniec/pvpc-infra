@@ -4,6 +4,6 @@
     - shell: docker {{ item[1] }} {{ item[0] }}
       ignore_errors: yes
       with_nested:
-        - ['pvpc', 'redis', 'postgres']
+        - ['pvpc', 'redis', 'rabbitmq', 'postgres']
         - ['stop', 'rm', 'rmi']
     - file: path=/home/vagrant/pvpc state=absent
