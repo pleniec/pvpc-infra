@@ -1,0 +1,15 @@
+---
+- hosts: vm
+  tasks:
+    - include: roles/postgres/tasks/build.yml
+    - include: roles/rabbitmq/tasks/build.yml
+    - include: roles/redis/tasks/build.yml
+    - include: roles/ws/tasks/build.yml
+    - include: roles/postgres/tasks/start.yml
+    - include: roles/rabbitmq/tasks/start.yml
+    - include: roles/redis/tasks/start.yml
+    - include: roles/core/tasks/build.yml
+    - include: roles/core/tasks/stop.yml
+    - include: roles/postgres/tasks/stop.yml
+    - include: roles/rabbitmq/tasks/stop.yml
+    - include: roles/redis/tasks/stop.yml

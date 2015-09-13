@@ -1,0 +1,8 @@
+---
+- hosts: vm
+  tasks:
+    - include: roles/core/tasks/stop.yml
+    - include: roles/ws/tasks/stop.yml
+    - include: roles/redis/tasks/stop.yml
+    - include: roles/rabbitmq/tasks/stop.yml
+    - include: roles/postgres/tasks/stop.yml

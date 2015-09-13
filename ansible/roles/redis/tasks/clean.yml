@@ -1,0 +1,3 @@
+---
+- name: clean redis
+  shell: docker rm redis

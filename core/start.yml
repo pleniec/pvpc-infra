@@ -1,9 +1,0 @@
----
-- hosts: vm
-  tasks:
-    - shell: docker start {{ item }}
-      with_items:
-        - postgres
-        - rabbitmq
-        - redis
-        - pvpc

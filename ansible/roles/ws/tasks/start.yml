@@ -1,0 +1,3 @@
+---
+- name: start ws
+  shell: docker start ws

@@ -1,0 +1,3 @@
+---
+- name: stop core
+  shell: docker stop core

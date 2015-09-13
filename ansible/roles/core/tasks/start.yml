@@ -1,0 +1,3 @@
+---
+- name: start core
+  shell: docker start core

@@ -1,0 +1,7 @@
+---
+- name: clone ws repository
+  git: repo=https://github.com/pleniec/pvpc-ws.git dest=/home/vagrant/ws
+- name: build ws
+  shell: docker build -t ws /home/vagrant/ws
+- name: create ws
+  shell: docker create -p 8080:8080 --name ws --link redis:redis --link rabbitmq:rabbitmq ws

@@ -1,0 +1,3 @@
+---
+- name: build rabbitmq
+  shell: docker create --name rabbitmq rabbitmq

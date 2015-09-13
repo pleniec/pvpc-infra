@@ -1,0 +1,13 @@
+---
+- name: clone git repository
+  git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
+- name: build core
+  shell: docker build -t core /home/vagrant/core
+- name: start core
+  shell: docker run -d -p 3000:3000 --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
+- name: migrate core
+  shell: docker exec core rake db:migrate
+- name: seed core
+  shell: docker exec core rake db:seed
+- name: stop core
+  shell: docker stop core

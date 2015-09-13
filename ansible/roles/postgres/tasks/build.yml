@@ -1,0 +1,3 @@
+---
+- name: build postgres
+  shell: docker create --name postgres postgres

@@ -1,0 +1,3 @@
+---
+- name: start rabbitmq
+  shell: docker start rabbitmq
