@@ -1,3 +1,3 @@
 ---
 - name: stop rabbitmq
-  shell: docker stop rabbitmq
+  docker: name=rabbitmq image=rabbitmq state=stopped

@@ -1,3 +1,5 @@
 ---
-- name: clean core
-  shell: docker rm core
+- name: remove core container
+  docker: name=core image=core state=absent
+- name: remove core image
+  docker_image: name=core state=absent

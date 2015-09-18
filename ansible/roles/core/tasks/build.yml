@@ -2,12 +2,27 @@
 - name: clone git repository
   git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
 - name: build core
-  shell: docker build -t core /home/vagrant/core
+  docker_image: path=/home/vagrant/core name=core state=build
+- include: ../../postgres/tasks/start.yml
+- include: ../../rabbitmq/tasks/start.yml
+- include: ../../redis/tasks/start.yml
 - name: start core
-  shell: docker run -d -p 3000:3000 --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
+  docker:
+    name: core
+    image: core
+    state: started
+    links:
+      - "postgres:postgres"
+      - "redis:redis"
+      - "rabbitmq:rabbitmq"
 - name: migrate core
   shell: docker exec core rake db:migrate
 - name: seed core
   shell: docker exec core rake db:seed
 - name: stop core
-  shell: docker stop core
+  docker: name=core image=core state=stopped
+- name: stop postgres
+  docker: name=postgres image=postgres state=stopped
+- include: ../../postgres/tasks/stop.yml
+- include: ../../rabbitmq/tasks/stop.yml
+- include: ../../redis/tasks/stop.yml

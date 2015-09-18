@@ -1,3 +1,3 @@
 ---
 - name: start core
-  shell: docker start core
+  docker: name=core image=core state=started
