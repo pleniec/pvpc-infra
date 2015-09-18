@@ -1,3 +1,3 @@
 ---
-- name: clean postgres
-  docker: name=postgres image=postgres state=absent
+- shell: docker rm postgres
+- shell: docker rmi postgres

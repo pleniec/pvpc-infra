@@ -1,3 +1,2 @@
 ---
-- name: stop core
-  docker: name=core image=core state=stopped
+- shell: docker stop core

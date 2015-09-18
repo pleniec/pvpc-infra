@@ -1,3 +1,2 @@
 ---
-- name: build redis
-  docker: name=redis image=redis state=present
+- shell: docker create --name redis redis

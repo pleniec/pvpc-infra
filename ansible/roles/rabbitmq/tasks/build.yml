@@ -1,3 +1,2 @@
 ---
-- name: build rabbitmq
-  docker: name=rabbitmq image=rabbitmq state=present
+- shell: docker create --name rabbitmq rabbitmq
