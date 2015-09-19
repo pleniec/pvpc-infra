@@ -1,3 +1,2 @@
 ---
-- name: stop ws
-  shell: docker stop ws
+- shell: docker stop ws

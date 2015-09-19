@@ -1,12 +1,10 @@
 ---
 - git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
-- shell: docker build -t core .
-  args:
-    chdir: /home/vagrant/core
+- shell: docker build -t core /home/vagrant/core
 - include: ../../postgres/tasks/start.yml
 - include: ../../rabbitmq/tasks/start.yml
 - include: ../../redis/tasks/start.yml
-- shell: docker run -d --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
+- shell: docker run -d -p 3000:3000 --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
 - shell: docker exec core rake db:migrate
 - shell: docker exec core rake db:seed
 - shell: docker stop core
