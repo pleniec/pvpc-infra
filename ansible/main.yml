@@ -1,8 +1,0 @@
----
-- hosts: vm
-  roles:
-    - postgres
-    - rabbitmq
-    - redis
-    - ws
-    - core
