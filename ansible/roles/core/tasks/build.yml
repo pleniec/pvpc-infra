@@ -1,13 +1,13 @@
 ---
 - git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
-- copy: src=Dockerfile dest=/home/vagrant/core/Dockerfile
-- copy: src=vagrant.rb dest=/home/vagrant/core/config/environments/vagrant.rb
-- copy: src={{ item }} dest=/home/vagrant/core/config/{{ item }}
+- copy: src={{ item }} dest=/home/vagrant/core/{{ item }}
   with_items:
-    - database.yml
-    - redis.yml
-    - rabbitmq.yml
-    - secrets.yml
+    - Dockerfile
+    - config/database.yml
+    - config/redis.yml
+    - config/rabbitmq.yml
+    - config/secrets.yml
+    - config/environments/vagrant.rb
 - shell: docker build -t core /home/vagrant/core
 - include: ../../postgres/tasks/start.yml
 - include: ../../rabbitmq/tasks/start.yml
