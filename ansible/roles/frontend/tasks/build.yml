@@ -1,0 +1,19 @@
+---
+
+- name: load secret vars
+  include_vars: secrets.txt
+
+- name: clone git repository
+  git: repo=https://github.com/Valian/PvPCenterFrontend.git version=production dest=/home/vagrant/frontend
+
+- name: copy dockerfile
+  template: src=Dockerfile.j2 dest=/home/vagrant/frontend/Dockerfile
+
+- name: build docker image
+  shell: docker build -t frontend /home/vagrant/frontend
+
+- name: create docker container
+  shell: docker create --name frontend --link core:core -p 5000:5000 frontend
+
+- name: remove git repository
+  file: path=/home/vagrant/frontend state=absent
