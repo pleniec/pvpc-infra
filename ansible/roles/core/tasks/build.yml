@@ -1,5 +1,11 @@
 ---
 - git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
+- copy: src=Dockerfile dest=/home/vagrant/core/Dockerfile
+- copy: src={{ item }} dest=/home/vagrant/core/config/{{ item }}
+  with_items:
+    - database.yml
+    - redis.yml
+    - rabbitmq.yml
 - shell: docker build -t core /home/vagrant/core
 - include: ../../postgres/tasks/start.yml
 - include: ../../rabbitmq/tasks/start.yml
@@ -11,3 +17,4 @@
 - include: ../../postgres/tasks/stop.yml
 - include: ../../rabbitmq/tasks/stop.yml
 - include: ../../redis/tasks/stop.yml
+- file: path=/home/vagrant/core state=absent
