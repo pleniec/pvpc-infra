@@ -1,2 +1,6 @@
 ---
-- shell: docker create --name rabbitmq rabbitmq
+- name: create rabbitmq container
+  docker: 
+    name: rabbitmq
+    image: rabbitmq
+    state: present

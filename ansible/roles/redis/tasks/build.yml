@@ -1,2 +1,7 @@
 ---
-- shell: docker create --name redis redis
+
+- name: create redis container
+  docker: 
+    name: redis
+    image: redis
+    state: present

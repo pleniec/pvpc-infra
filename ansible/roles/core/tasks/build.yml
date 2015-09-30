@@ -40,4 +40,3 @@
 - include: ../../rabbitmq/tasks/stop.yml
 - include: ../../redis/tasks/stop.yml
 
-- file: path=/home/vagrant/core state=absent

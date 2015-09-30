@@ -1,5 +1,5 @@
 ---
 
 - hosts: webserver
-  roles: 
-  - frontend
+  roles:
+    - prepare

@@ -1,0 +1,4 @@
+[webserver]
+111.111.111.111 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+ 
