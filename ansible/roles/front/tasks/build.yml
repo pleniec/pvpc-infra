@@ -1,0 +1,6 @@
+---
+- git: repo=https://github.com/Valian/PvPCenterFrontend.git version=production dest=/home/vagrant/front
+- copy: src=Dockerfile dest=/home/vagrant/front/Dockerfile
+- shell: docker build -t front /home/vagrant/front
+- shell: docker create --name front --link core:core -p 5000:5000 front
+- file: path=/home/vagrant/front state=absent

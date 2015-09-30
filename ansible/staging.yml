@@ -1,8 +1,9 @@
 ---
-- hosts: vm
+- hosts: vagrant
   roles:
     - postgres
     - rabbitmq
     - redis
     - ws
     - core
+    - front

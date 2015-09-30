@@ -1,0 +1,3 @@
+---
+- shell: docker rm front
+- shell: docker rmi front
