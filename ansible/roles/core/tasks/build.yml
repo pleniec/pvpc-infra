@@ -1,22 +1,43 @@
 ---
-- git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
-- copy: src={{ item }} dest=/home/vagrant/core/{{ item }}
+
+- name: include secret vars
+  include_vars: secrets.txt
+
+- name: Clone git repository
+  git: repo=https://github.com/pleniec/pvpc-core.git dest=/home/vagrant/core
+
+- name: Copy config files
+  copy: src={{ item }} dest=/home/vagrant/core/{{ item }}
   with_items:
-    - Dockerfile
     - config/database.yml
     - config/redis.yml
     - config/rabbitmq.yml
     - config/secrets.yml
     - config/environments/vagrant.rb
-- shell: docker build -t core /home/vagrant/core
+
+- name: copy Dockerfile
+  template: src=Dockerfile.j2 dest=/home/vagrant/core/Dockerfile
+
+- name: Build docker images
+  shell: docker build -t core /home/vagrant/core
+
 - include: ../../postgres/tasks/start.yml
 - include: ../../rabbitmq/tasks/start.yml
 - include: ../../redis/tasks/start.yml
-- shell: docker run -d -p 3000:3000 --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
-- shell: docker exec core rake db:migrate
-- shell: docker exec core rake db:seed
-- shell: docker stop core
+
+- name: Run docker container
+  shell: docker run -d -p 3000:3000 --name core --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq core
+
+- name: Make migrations
+  shell: docker exec core rake db:migrate
+
+- name: Apply seed data
+  shell: docker exec core rake db:seed
+
+- name: stop containers 
+  shell: docker stop core
 - include: ../../postgres/tasks/stop.yml
 - include: ../../rabbitmq/tasks/stop.yml
 - include: ../../redis/tasks/stop.yml
+
 - file: path=/home/vagrant/core state=absent

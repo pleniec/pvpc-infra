@@ -1,0 +1,25 @@
+FROM python:2.7.9
+
+COPY . ./pvpc-frontend
+WORKDIR ./pvpc-frontend
+
+ENV FLASK_ENV vagrant
+ENV CLOUDINARY_CLOUD_NAME "{{ cloudinary_cloud_name }}"
+ENV CLOUDINARY_PUBLIC_KEY "{{ cloudinary_public_key }}"
+ENV CLOUDINARY_SECRET "{{ cloudinary_secret }}"
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && apt-get install -y npm \
+    && ln -s /usr/bin/nodejs /usr/bin/node \
+    && npm install \
+    && npm install -g grunt-cli bower less coffee-script \
+    && bower install --allow-root \
+    && pip install --upgrade pip \
+    && pip install -r requirements.txt \
+    && grunt dev
+
+EXPOSE 5000
+
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "run_app:app"]
