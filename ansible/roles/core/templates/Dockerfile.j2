@@ -1,8 +1,8 @@
 FROM ruby:2.2.2
 
 ENV RAILS_ENV vagrant
-ENV CORE_LOGIN {{ login }}
-ENV CORE_PASSWORD {{ password }}
+ENV CORE_LOGIN {{ core_login }}
+ENV CORE_PASSWORD {{ core_password }}
 
 COPY . /opt/core
 WORKDIR /opt/core

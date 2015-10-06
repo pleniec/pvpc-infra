@@ -4,7 +4,7 @@
   include_vars: secrets.txt
 
 - name: clone git repository
-  git: repo=https://github.com/Valian/PvPCenterFrontend.git version=production dest=/home/vagrant/frontend
+  git: repo=https://github.com/Valian/PvPCenterFrontend.git version=production dest=/home/vagrant/frontend force=true
 
 - name: copy dockerfile
   template: src=Dockerfile.j2 dest=/home/vagrant/frontend/Dockerfile

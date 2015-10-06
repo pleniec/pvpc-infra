@@ -1,5 +1,7 @@
 ---
 
 - hosts: webserver
+  vars: 
+  - secrets.yml
   roles: 
   - core
