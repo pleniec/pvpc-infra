@@ -1,3 +1,0 @@
----
-- shell: docker rm core
-- shell: docker rmi core

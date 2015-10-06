@@ -1,7 +1,10 @@
 ---
 
 - hosts: webserver
-  vars: 
+  vars_files: 
   - secrets.yml
   roles: 
+  - postgres
+  - rabbitmq
+  - redis
   - core

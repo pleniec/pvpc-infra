@@ -1,4 +1,0 @@
----
-
-- name: start frontend
-  shell: docker start frontend

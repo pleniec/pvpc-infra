@@ -1,3 +1,0 @@
----
-- shell: docker rm ws
-- shell: docker rmi ws

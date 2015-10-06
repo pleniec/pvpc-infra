@@ -1,5 +1,26 @@
 ---
-- include: build.yml tags=build
-- include: start.yml tags=start
-- include: stop.yml tags=stop
-- include: clean.yml tags=clean
+
+- name: run postgres container
+  docker: 
+    name: postgres
+    image: postgres
+    state: started
+
+- name: Wait for docker initialization
+  pause: seconds=5
+  tags: configure
+
+- name: initialize db 
+  shell: docker exec postgres psql -h localhost -U postgres -c "{{ item }}"
+  with_items:
+    - CREATE ROLE core WITH ENCRYPTED PASSWORD 'core'
+    - ALTER ROLE core LOGIN
+    - CREATE DATABASE core
+    - ALTER DATABASE core OWNER TO core
+  ignore_errors: yes
+  tags: configure
+
+- name: install hstore extension
+  shell: docker exec postgres psql -h localhost -U postgres -d core -c "CREATE EXTENSION hstore"
+  ignore_errors: yes
+  tags: configure

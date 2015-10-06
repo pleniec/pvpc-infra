@@ -1,5 +1,22 @@
 ---
-- include: build.yml tags=build
-- include: start.yml tags=start
-- include: stop.yml tags=stop
-- include: clean.yml tags=clean
+
+- name: clone git repo
+  git: repo=https://github.com/pleniec/pvpc-ws.git dest=/home/vagrant/ws force=yes
+  tags: build	
+
+- name: bild docker image
+  docker_image: 
+    name: ws
+    path: /home/vagrant/ws
+    state: build
+  tags: build	
+
+- name: run ws container
+  docker:
+    name: ws
+    image: ws
+    links:
+    - "redis:redis"
+    - "rabbitmq:rabbitmq"
+    ports:
+    - "9000:8080"

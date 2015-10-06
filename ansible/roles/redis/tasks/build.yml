@@ -1,7 +1,0 @@
----
-
-- name: create redis container
-  docker: 
-    name: redis
-    image: redis
-    state: present

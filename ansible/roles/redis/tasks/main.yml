@@ -1,5 +1,7 @@
 ---
-- include: build.yml tags=build
-- include: start.yml tags=start
-- include: stop.yml tags=stop
-- include: clean.yml tags=clean
+
+- name: create and start redis container
+  docker: 
+    name: redis
+    image: redis
+    state: started

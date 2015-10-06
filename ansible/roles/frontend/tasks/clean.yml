@@ -1,3 +1,0 @@
----
-- shell: docker rm frontend
-- shell: docker rmi frontend

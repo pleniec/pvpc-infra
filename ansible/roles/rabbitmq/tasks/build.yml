@@ -1,6 +1,0 @@
----
-- name: create rabbitmq container
-  docker: 
-    name: rabbitmq
-    image: rabbitmq
-    state: present

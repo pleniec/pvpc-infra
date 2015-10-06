@@ -7,6 +7,9 @@ ENV FLASK_ENV vagrant
 ENV CLOUDINARY_CLOUD_NAME "{{ cloudinary_cloud_name }}"
 ENV CLOUDINARY_PUBLIC_KEY "{{ cloudinary_public_key }}"
 ENV CLOUDINARY_SECRET "{{ cloudinary_secret }}"
+ENV CORE_LOGIN "{{ core_login }}"
+ENV CORE_PASSWORD "{{ core_password }}"
+ENV DOCKER_HOST_IP "{{ docker_host_ip }}"
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh \
     && apt-get update \

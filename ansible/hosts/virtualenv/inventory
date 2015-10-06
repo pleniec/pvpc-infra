@@ -1,4 +1,4 @@
 [webserver]
-111.111.111.111 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+111.111.111.111 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant docker_host_ip=111.111.111.111
 
  

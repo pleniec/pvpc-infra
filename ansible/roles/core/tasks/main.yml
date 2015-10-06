@@ -1,5 +1,46 @@
 ---
-- include: build.yml tags=build
-- include: start.yml tags=start
-- include: stop.yml tags=stop
-- include: clean.yml tags=clean
+
+- name: Clone git repository
+  git: 
+    repo: https://github.com/pleniec/pvpc-core.git 
+    dest: /home/vagrant/core 
+    force: yes
+  tags: build
+
+- name: Copy config files
+  copy: src={{ item }} dest=/home/vagrant/core/{{ item }}
+  with_items:
+    - config/database.yml
+    - config/redis.yml
+    - config/rabbitmq.yml
+    - config/secrets.yml
+    - config/environments/vagrant.rb
+  tags: build
+
+- name: copy Dockerfile
+  template: src=Dockerfile.j2 dest=/home/vagrant/core/Dockerfile
+  tags: build
+
+- name: Build docker images
+  docker_image: name=core path="/home/vagrant/core" state=build
+  tags: build
+
+- name: Run docker container
+  docker: 
+    name: core
+    image: core
+    state: reloaded
+    links:
+    - "postgres:postgres"
+    - "redis:redis"
+    - "rabbitmq:rabbitmq"
+    ports:
+    - "3000:3000"
+
+- name: Make migrations
+  shell: docker exec core rake db:migrate
+  tags: configure
+
+- name: Apply seed data
+  shell: docker exec core rake db:seed
+  tags: configure

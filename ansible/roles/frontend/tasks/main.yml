@@ -1,6 +1,25 @@
 ---
 
-- include: build.yml tags=build
-- include: start.yml tags=start
-- include: stop.yml tags=stop
-- include: clean.yml tags=clean
+- name: clone git repository
+  git: 
+    repo: https://github.com/Valian/PvPCenterFrontend.git 
+    version: "{{ git_branch | default('HEAD') }}" 
+    dest: /home/vagrant/frontend 
+    force: yes
+  tags: build
+
+- name: copy dockerfile
+  template: src=Dockerfile.j2 dest=/home/vagrant/frontend/Dockerfile
+  tags: build
+
+- name: build docker image
+  docker_image: path="/home/vagrant/frontend" name=frontend state=build
+  tags: build
+
+- name: create and start docker container
+  docker: 
+    name: frontend 
+    state: reloaded
+    image: frontend
+    ports:
+    - "80:5000"

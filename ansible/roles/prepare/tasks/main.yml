@@ -7,7 +7,7 @@
 
 - name: install required packages
   apt: name={{ item }} state=present
-  become: yes
+  sudo: yes
   with_items: 
     - git
     - python-pip
@@ -15,6 +15,7 @@
 
 - name: install docker-py
   pip: name={{ item }} state=latest
+  sudo: yes
   with_items: 
     - docker-py
   tags: configure

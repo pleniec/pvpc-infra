@@ -1,3 +1,0 @@
----
-- shell: docker rm rabbitmq
-- shell: docker rmi rabbitmq

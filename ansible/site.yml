@@ -2,9 +2,6 @@
 
 - hosts: webserver
 - include: prepare.yml
-- include: postgres.yml
-- include: rabbitmq.yml
-- include: redis.yml
 - include: ws.yml
 - include: core.yml
 - include: frontend.yml
